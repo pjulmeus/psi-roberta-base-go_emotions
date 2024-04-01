@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Overpass:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <title>Go Emotions</title>
+</head>
+<body>
+    <div class="header">
+        <h1 class="overpass">Go Emotions</h1>
+    </div>
+
+    <form action="" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Submit">
+    </form>
+
+    <h3>Input a sentence, phrase or word, and see what emotions they invoke.</h3>
+    <h4> Your statement : {{ yourName }}</h4>
+    <div class="box">
+    {% for m in model %}
+    {% if m.score > .15 %}
+    <div class="back">
+    <div class="overpass">
+        <p class="label">{{ m.label }}</p>
+    </div>
+    <div class="container">
+        <div class="skills html" style="width: {{ m.score }}%; background-color: chartreuse">{{ m.score }}%</div>
+      </div>
+      </div>
+      {% endif %}
+      {% endfor %}
+    </div>
+</body>
+</html>
